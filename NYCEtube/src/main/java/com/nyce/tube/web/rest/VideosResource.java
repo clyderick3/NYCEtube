@@ -1,7 +1,5 @@
 package com.nyce.tube.web.rest;
 
-import com.amazonaws.services.waf.model.HTTPRequest;
-import com.github.dockerjava.zerodep.shaded.org.apache.hc.core5.http.HttpStatus;
 import com.nyce.tube.domain.Videos;
 import com.nyce.tube.repository.VideosRepository;
 import com.nyce.tube.service.VideosService;
@@ -37,14 +35,14 @@ public class VideosResource {
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
 
-    
+
     private final VideosService videosService;
 
     private final VideosRepository videosRepository;
 
     private final BucketService bucketService;
 
-    
+
     @Autowired
     public VideosResource(VideosService videosService, VideosRepository videosRepository, BucketService bucketService) {
         this.videosService = videosService;
