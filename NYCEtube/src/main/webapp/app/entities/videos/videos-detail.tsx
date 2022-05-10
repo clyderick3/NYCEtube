@@ -31,6 +31,10 @@ export const VideosDetail = (props: RouteComponentProps<{ id: string }>) => {
           </dt>
           <dd>{videosEntity.name}</dd>
           <dt>
+            <span id="url">Url</span>
+          </dt>
+          <dd>{videosEntity.url}</dd>
+          <dt>
             <span id="date">Date</span>
           </dt>
           <dd>{videosEntity.date ? <TextFormat value={videosEntity.date} type="date" format={APP_DATE_FORMAT} /> : null}</dd>

@@ -17,6 +17,7 @@ export const Home = (ReactElement) => {
   const videosList = useAppSelector(state => state.videos.entities);
   const loading = useAppSelector(state => state.videos.loading);
   const dispatch = useAppDispatch();
+  const url = 'https://zcw-cohort8zero.s3.amazonaws.com/videoapp/sora.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20220509T183032Z&X-Amz-SignedHeaders=host&X-Amz-Expires=604799&X-Amz-Credential=AKIAUTLWJ537YFVAWF46%2F20220509%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=69c99954726330f49a4a5bc58f975fd236de3a010e615feb10d7ad2b8cc31428';
   
 
   useEffect(() => {
@@ -36,24 +37,30 @@ export const Home = (ReactElement) => {
       {/* <Col md="3" className="pad">
         <span className="hipster rounded" />
       </Col> */}
-<div className = "container" >
-  <div className="row">
-    <div className="col">video1</div>
-    <div className="col">video2</div>
-    <div className="col">video3</div>
-
+<div className="card-deck">
+  <div className="card">
+    <VideoApp vid = {url}/>
+    <div className="card-body">
+      <h5 className="card-title">video1</h5>
+      <p className="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+      <p className="card-text"><small className="text-muted">Last updated 3 mins ago</small></p>
+    </div>
   </div>
-  <div className="row">
-    <div className="col">video4</div>
-    <div className="col">video5</div>
-    <div className="col">video6</div>
-
+  <div className="card">
+  <VideoApp vid = {url} />
+    <div className="card-body">
+      <h5 className="card-title">Card title</h5>
+      <p className="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+      <p className="card-text"><small className="text-muted">Last updated 3 mins ago</small></p>
+    </div>
   </div>
-  <div className="row">
-    <div className="col">video7</div>
-    <div className="col">video8</div>
-    <div className="col">video9</div>
-
+  <div className="card">
+  <VideoApp  vid = {url}/>
+    <div className="card-body">
+      <h5 className="card-title">Card title</h5>
+      <p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+      <p className="card-text"><small className="text-muted">Last updated 3 mins ago</small></p>
+    </div>
   </div>
 </div>
 
@@ -75,7 +82,7 @@ export const Home = (ReactElement) => {
           </div>
         )}
          <div>
-           <VideoApp/>
+           <VideoApp vid = {url}/>
         </div>
       </Col>
     </Row>

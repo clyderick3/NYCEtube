@@ -12,6 +12,10 @@
       "fieldValidateRulesMaxlength": "200"
     },
     {
+      "fieldName": "url",
+      "fieldType": "String"
+    },
+    {
       "fieldName": "date",
       "fieldType": "ZonedDateTime"
     },

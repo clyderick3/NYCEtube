@@ -28,6 +28,9 @@ public class Videos implements Serializable {
     @Column(name = "name", length = 200, nullable = false)
     private String name;
 
+    @Column(name = "url")
+    private String url;
+
     @Column(name = "date")
     private ZonedDateTime date;
 
@@ -71,6 +74,19 @@ public class Videos implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getUrl() {
+        return this.url;
+    }
+
+    public Videos url(String url) {
+        this.setUrl(url);
+        return this;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public ZonedDateTime getDate() {
@@ -163,6 +179,7 @@ public class Videos implements Serializable {
         return "Videos{" +
             "id=" + getId() +
             ", name='" + getName() + "'" +
+            ", url='" + getUrl() + "'" +
             ", date='" + getDate() + "'" +
             ", video='" + getVideo() + "'" +
             ", videoContentType='" + getVideoContentType() + "'" +

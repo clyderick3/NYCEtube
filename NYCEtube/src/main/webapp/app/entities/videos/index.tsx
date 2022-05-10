@@ -8,8 +8,6 @@ import VideosDetail from './videos-detail';
 import VideosUpdate from './videos-update';
 import VideosDeleteDialog from './videos-delete-dialog';
 
-
-
 const Routes = ({ match }) => (
   <>
     <Switch>

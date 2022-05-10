@@ -42,13 +42,6 @@ public interface VideosService {
     List<Videos> findAll();
 
     /**
-     * Get all the videos by user.
-     *
-     * @return the list of entities.
-     */
-    List<Videos> findAllByUser();
-
-    /**
      * Get all the videos with eager load of many-to-many relationships.
      *
      * @param pageable the pagination information.

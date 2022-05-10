@@ -17,6 +17,9 @@
             <column name="name" type="varchar(200)">
                 <constraints nullable="false" />
             </column>
+            <column name="url" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
             <column name="date" type="${datetimeType}">
                 <constraints nullable="true" />
             </column>
@@ -55,6 +58,7 @@
                   usePreparedStatements="true">
             <column name="id" type="numeric"/>
             <column name="name" type="string"/>
+            <column name="url" type="string"/>
             <column name="date" type="date"/>
             <column name="video" type="blob"/>
             <column name="video_content_type" type="string"/>

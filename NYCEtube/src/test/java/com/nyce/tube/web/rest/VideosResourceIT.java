@@ -48,6 +48,9 @@ class VideosResourceIT {
     private static final String DEFAULT_NAME = "AAAAAAAAAA";
     private static final String UPDATED_NAME = "BBBBBBBBBB";
 
+    private static final String DEFAULT_URL = "AAAAAAAAAA";
+    private static final String UPDATED_URL = "BBBBBBBBBB";
+
     private static final ZonedDateTime DEFAULT_DATE = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
     private static final ZonedDateTime UPDATED_DATE = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
 
@@ -91,6 +94,7 @@ class VideosResourceIT {
     public static Videos createEntity(EntityManager em) {
         Videos videos = new Videos()
             .name(DEFAULT_NAME)
+            .url(DEFAULT_URL)
             .date(DEFAULT_DATE)
             .video(DEFAULT_VIDEO)
             .videoContentType(DEFAULT_VIDEO_CONTENT_TYPE)
@@ -107,6 +111,7 @@ class VideosResourceIT {
     public static Videos createUpdatedEntity(EntityManager em) {
         Videos videos = new Videos()
             .name(UPDATED_NAME)
+            .url(UPDATED_URL)
             .date(UPDATED_DATE)
             .video(UPDATED_VIDEO)
             .videoContentType(UPDATED_VIDEO_CONTENT_TYPE)
@@ -133,6 +138,7 @@ class VideosResourceIT {
         assertThat(videosList).hasSize(databaseSizeBeforeCreate + 1);
         Videos testVideos = videosList.get(videosList.size() - 1);
         assertThat(testVideos.getName()).isEqualTo(DEFAULT_NAME);
+        assertThat(testVideos.getUrl()).isEqualTo(DEFAULT_URL);
         assertThat(testVideos.getDate()).isEqualTo(DEFAULT_DATE);
         assertThat(testVideos.getVideo()).isEqualTo(DEFAULT_VIDEO);
         assertThat(testVideos.getVideoContentType()).isEqualTo(DEFAULT_VIDEO_CONTENT_TYPE);
@@ -187,6 +193,7 @@ class VideosResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(videos.getId().intValue())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
+            .andExpect(jsonPath("$.[*].url").value(hasItem(DEFAULT_URL)))
             .andExpect(jsonPath("$.[*].date").value(hasItem(sameInstant(DEFAULT_DATE))))
             .andExpect(jsonPath("$.[*].videoContentType").value(hasItem(DEFAULT_VIDEO_CONTENT_TYPE)))
             .andExpect(jsonPath("$.[*].video").value(hasItem(Base64Utils.encodeToString(DEFAULT_VIDEO))))
@@ -224,6 +231,7 @@ class VideosResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(videos.getId().intValue()))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME))
+            .andExpect(jsonPath("$.url").value(DEFAULT_URL))
             .andExpect(jsonPath("$.date").value(sameInstant(DEFAULT_DATE)))
             .andExpect(jsonPath("$.videoContentType").value(DEFAULT_VIDEO_CONTENT_TYPE))
             .andExpect(jsonPath("$.video").value(Base64Utils.encodeToString(DEFAULT_VIDEO)))
@@ -251,6 +259,7 @@ class VideosResourceIT {
         em.detach(updatedVideos);
         updatedVideos
             .name(UPDATED_NAME)
+            .url(UPDATED_URL)
             .date(UPDATED_DATE)
             .video(UPDATED_VIDEO)
             .videoContentType(UPDATED_VIDEO_CONTENT_TYPE)
@@ -269,6 +278,7 @@ class VideosResourceIT {
         assertThat(videosList).hasSize(databaseSizeBeforeUpdate);
         Videos testVideos = videosList.get(videosList.size() - 1);
         assertThat(testVideos.getName()).isEqualTo(UPDATED_NAME);
+        assertThat(testVideos.getUrl()).isEqualTo(UPDATED_URL);
         assertThat(testVideos.getDate()).isEqualTo(UPDATED_DATE);
         assertThat(testVideos.getVideo()).isEqualTo(UPDATED_VIDEO);
         assertThat(testVideos.getVideoContentType()).isEqualTo(UPDATED_VIDEO_CONTENT_TYPE);
@@ -343,7 +353,7 @@ class VideosResourceIT {
         Videos partialUpdatedVideos = new Videos();
         partialUpdatedVideos.setId(videos.getId());
 
-        partialUpdatedVideos.name(UPDATED_NAME).date(UPDATED_DATE).video(UPDATED_VIDEO).videoContentType(UPDATED_VIDEO_CONTENT_TYPE);
+        partialUpdatedVideos.name(UPDATED_NAME).url(UPDATED_URL).date(UPDATED_DATE).categories(UPDATED_CATEGORIES);
 
         restVideosMockMvc
             .perform(
@@ -358,10 +368,11 @@ class VideosResourceIT {
         assertThat(videosList).hasSize(databaseSizeBeforeUpdate);
         Videos testVideos = videosList.get(videosList.size() - 1);
         assertThat(testVideos.getName()).isEqualTo(UPDATED_NAME);
+        assertThat(testVideos.getUrl()).isEqualTo(UPDATED_URL);
         assertThat(testVideos.getDate()).isEqualTo(UPDATED_DATE);
-        assertThat(testVideos.getVideo()).isEqualTo(UPDATED_VIDEO);
-        assertThat(testVideos.getVideoContentType()).isEqualTo(UPDATED_VIDEO_CONTENT_TYPE);
-        assertThat(testVideos.getCategories()).isEqualTo(DEFAULT_CATEGORIES);
+        assertThat(testVideos.getVideo()).isEqualTo(DEFAULT_VIDEO);
+        assertThat(testVideos.getVideoContentType()).isEqualTo(DEFAULT_VIDEO_CONTENT_TYPE);
+        assertThat(testVideos.getCategories()).isEqualTo(UPDATED_CATEGORIES);
     }
 
     @Test
@@ -378,6 +389,7 @@ class VideosResourceIT {
 
         partialUpdatedVideos
             .name(UPDATED_NAME)
+            .url(UPDATED_URL)
             .date(UPDATED_DATE)
             .video(UPDATED_VIDEO)
             .videoContentType(UPDATED_VIDEO_CONTENT_TYPE)
@@ -396,6 +408,7 @@ class VideosResourceIT {
         assertThat(videosList).hasSize(databaseSizeBeforeUpdate);
         Videos testVideos = videosList.get(videosList.size() - 1);
         assertThat(testVideos.getName()).isEqualTo(UPDATED_NAME);
+        assertThat(testVideos.getUrl()).isEqualTo(UPDATED_URL);
         assertThat(testVideos.getDate()).isEqualTo(UPDATED_DATE);
         assertThat(testVideos.getVideo()).isEqualTo(UPDATED_VIDEO);
         assertThat(testVideos.getVideoContentType()).isEqualTo(UPDATED_VIDEO_CONTENT_TYPE);

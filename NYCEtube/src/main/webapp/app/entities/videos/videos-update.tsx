@@ -100,6 +100,7 @@ export const VideosUpdate = (props: RouteComponentProps<{ id: string }>) => {
                   maxLength: { value: 200, message: 'This field cannot be longer than 200 characters.' },
                 }}
               />
+              <ValidatedField label="Url" id="videos-url" name="url" data-cy="url" type="text" />
               <ValidatedField
                 label="Date"
                 id="videos-date"
