@@ -37,14 +37,14 @@ public class VideosResource {
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
 
-
+    
     private final VideosService videosService;
 
     private final VideosRepository videosRepository;
 
     private final BucketService bucketService;
 
-
+    
     @Autowired
     public VideosResource(VideosService videosService, VideosRepository videosRepository, BucketService bucketService) {
         this.videosService = videosService;
