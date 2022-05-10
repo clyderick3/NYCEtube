@@ -36,6 +36,9 @@ public class VideosResource {
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
 
+
+
+
     private final VideosService videosService;
 
     private final VideosRepository videosRepository;
