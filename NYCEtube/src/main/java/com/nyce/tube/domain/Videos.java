@@ -35,15 +35,24 @@ public class Videos implements Serializable {
     private ZonedDateTime date;
 
     @Lob
-    @Column(name = "video")
+    @Column(name = "video", nullable = false)
     private byte[] video;
 
-    @Column(name = "video_content_type")
+    @NotNull
+    @Column(name = "video_content_type", nullable = false)
     private String videoContentType;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "categories")
     private Categories categories;
+
+    @Lob
+    @Column(name = "thumbnail", nullable = false)
+    private byte[] thumbnail;
+
+    @NotNull
+    @Column(name = "thumbnail_content_type", nullable = false)
+    private String thumbnailContentType;
 
     @ManyToOne
     private User user;
@@ -141,6 +150,32 @@ public class Videos implements Serializable {
         this.categories = categories;
     }
 
+    public byte[] getThumbnail() {
+        return this.thumbnail;
+    }
+
+    public Videos thumbnail(byte[] thumbnail) {
+        this.setThumbnail(thumbnail);
+        return this;
+    }
+
+    public void setThumbnail(byte[] thumbnail) {
+        this.thumbnail = thumbnail;
+    }
+
+    public String getThumbnailContentType() {
+        return this.thumbnailContentType;
+    }
+
+    public Videos thumbnailContentType(String thumbnailContentType) {
+        this.thumbnailContentType = thumbnailContentType;
+        return this;
+    }
+
+    public void setThumbnailContentType(String thumbnailContentType) {
+        this.thumbnailContentType = thumbnailContentType;
+    }
+
     public User getUser() {
         return this.user;
     }
@@ -184,6 +219,8 @@ public class Videos implements Serializable {
             ", video='" + getVideo() + "'" +
             ", videoContentType='" + getVideoContentType() + "'" +
             ", categories='" + getCategories() + "'" +
+            ", thumbnail='" + getThumbnail() + "'" +
+            ", thumbnailContentType='" + getThumbnailContentType() + "'" +
             "}";
     }
 }

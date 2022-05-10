@@ -2,7 +2,6 @@ package com.nyce.tube.web.rest;
 
 import com.nyce.tube.domain.Videos;
 import com.nyce.tube.repository.VideosRepository;
-import com.nyce.tube.service.BucketService;
 import com.nyce.tube.service.VideosService;
 import com.nyce.tube.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
@@ -14,9 +13,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tech.jhipster.web.util.HeaderUtil;
@@ -40,14 +37,9 @@ public class VideosResource {
 
     private final VideosRepository videosRepository;
 
-    private final BucketService bucketService;
-
-
-    @Autowired
-    public VideosResource(VideosService videosService, VideosRepository videosRepository, BucketService bucketService) {
+    public VideosResource(VideosService videosService, VideosRepository videosRepository) {
         this.videosService = videosService;
         this.videosRepository = videosRepository;
-        this.bucketService = bucketService;
     }
 
     /**
@@ -161,12 +153,9 @@ public class VideosResource {
     @GetMapping("/videos/{id}")
     public ResponseEntity<Videos> getVideos(@PathVariable Long id) {
         log.debug("REST request to get Videos : {}", id);
-        Optional <Videos> videos = videosService.findOne(id);
-        videos.get().setUrl(bucketService.getUrl(videos.get().getName()));
+        Optional<Videos> videos = videosService.findOne(id);
         return ResponseUtil.wrapOrNotFound(videos);
     }
-
-
 
     /**
      * {@code DELETE  /videos/:id} : delete the "id" videos.

@@ -3,8 +3,9 @@ entity Videos {
     name String required maxlength(200)
     url String 
     date ZonedDateTime
-    video Blob
+    video Blob required 
     categories Categories
+    thumbnail ImageBlob required
 }
 
 entity Comment {

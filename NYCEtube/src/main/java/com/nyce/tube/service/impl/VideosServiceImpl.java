@@ -64,6 +64,12 @@ public class VideosServiceImpl implements VideosService {
                 if (videos.getCategories() != null) {
                     existingVideos.setCategories(videos.getCategories());
                 }
+                if (videos.getThumbnail() != null) {
+                    existingVideos.setThumbnail(videos.getThumbnail());
+                }
+                if (videos.getThumbnailContentType() != null) {
+                    existingVideos.setThumbnailContentType(videos.getThumbnailContentType());
+                }
 
                 return existingVideos;
             })

@@ -62,6 +62,11 @@ class VideosResourceIT {
     private static final Categories DEFAULT_CATEGORIES = Categories.ARTSCRAFTS;
     private static final Categories UPDATED_CATEGORIES = Categories.FASHIONBEAUTY;
 
+    private static final byte[] DEFAULT_THUMBNAIL = TestUtil.createByteArray(1, "0");
+    private static final byte[] UPDATED_THUMBNAIL = TestUtil.createByteArray(1, "1");
+    private static final String DEFAULT_THUMBNAIL_CONTENT_TYPE = "image/jpg";
+    private static final String UPDATED_THUMBNAIL_CONTENT_TYPE = "image/png";
+
     private static final String ENTITY_API_URL = "/api/videos";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
@@ -98,7 +103,9 @@ class VideosResourceIT {
             .date(DEFAULT_DATE)
             .video(DEFAULT_VIDEO)
             .videoContentType(DEFAULT_VIDEO_CONTENT_TYPE)
-            .categories(DEFAULT_CATEGORIES);
+            .categories(DEFAULT_CATEGORIES)
+            .thumbnail(DEFAULT_THUMBNAIL)
+            .thumbnailContentType(DEFAULT_THUMBNAIL_CONTENT_TYPE);
         return videos;
     }
 
@@ -115,7 +122,9 @@ class VideosResourceIT {
             .date(UPDATED_DATE)
             .video(UPDATED_VIDEO)
             .videoContentType(UPDATED_VIDEO_CONTENT_TYPE)
-            .categories(UPDATED_CATEGORIES);
+            .categories(UPDATED_CATEGORIES)
+            .thumbnail(UPDATED_THUMBNAIL)
+            .thumbnailContentType(UPDATED_THUMBNAIL_CONTENT_TYPE);
         return videos;
     }
 
@@ -143,6 +152,8 @@ class VideosResourceIT {
         assertThat(testVideos.getVideo()).isEqualTo(DEFAULT_VIDEO);
         assertThat(testVideos.getVideoContentType()).isEqualTo(DEFAULT_VIDEO_CONTENT_TYPE);
         assertThat(testVideos.getCategories()).isEqualTo(DEFAULT_CATEGORIES);
+        assertThat(testVideos.getThumbnail()).isEqualTo(DEFAULT_THUMBNAIL);
+        assertThat(testVideos.getThumbnailContentType()).isEqualTo(DEFAULT_THUMBNAIL_CONTENT_TYPE);
     }
 
     @Test
@@ -197,7 +208,9 @@ class VideosResourceIT {
             .andExpect(jsonPath("$.[*].date").value(hasItem(sameInstant(DEFAULT_DATE))))
             .andExpect(jsonPath("$.[*].videoContentType").value(hasItem(DEFAULT_VIDEO_CONTENT_TYPE)))
             .andExpect(jsonPath("$.[*].video").value(hasItem(Base64Utils.encodeToString(DEFAULT_VIDEO))))
-            .andExpect(jsonPath("$.[*].categories").value(hasItem(DEFAULT_CATEGORIES.toString())));
+            .andExpect(jsonPath("$.[*].categories").value(hasItem(DEFAULT_CATEGORIES.toString())))
+            .andExpect(jsonPath("$.[*].thumbnailContentType").value(hasItem(DEFAULT_THUMBNAIL_CONTENT_TYPE)))
+            .andExpect(jsonPath("$.[*].thumbnail").value(hasItem(Base64Utils.encodeToString(DEFAULT_THUMBNAIL))));
     }
 
     @SuppressWarnings({ "unchecked" })
@@ -235,7 +248,9 @@ class VideosResourceIT {
             .andExpect(jsonPath("$.date").value(sameInstant(DEFAULT_DATE)))
             .andExpect(jsonPath("$.videoContentType").value(DEFAULT_VIDEO_CONTENT_TYPE))
             .andExpect(jsonPath("$.video").value(Base64Utils.encodeToString(DEFAULT_VIDEO)))
-            .andExpect(jsonPath("$.categories").value(DEFAULT_CATEGORIES.toString()));
+            .andExpect(jsonPath("$.categories").value(DEFAULT_CATEGORIES.toString()))
+            .andExpect(jsonPath("$.thumbnailContentType").value(DEFAULT_THUMBNAIL_CONTENT_TYPE))
+            .andExpect(jsonPath("$.thumbnail").value(Base64Utils.encodeToString(DEFAULT_THUMBNAIL)));
     }
 
     @Test
@@ -263,7 +278,9 @@ class VideosResourceIT {
             .date(UPDATED_DATE)
             .video(UPDATED_VIDEO)
             .videoContentType(UPDATED_VIDEO_CONTENT_TYPE)
-            .categories(UPDATED_CATEGORIES);
+            .categories(UPDATED_CATEGORIES)
+            .thumbnail(UPDATED_THUMBNAIL)
+            .thumbnailContentType(UPDATED_THUMBNAIL_CONTENT_TYPE);
 
         restVideosMockMvc
             .perform(
@@ -283,6 +300,8 @@ class VideosResourceIT {
         assertThat(testVideos.getVideo()).isEqualTo(UPDATED_VIDEO);
         assertThat(testVideos.getVideoContentType()).isEqualTo(UPDATED_VIDEO_CONTENT_TYPE);
         assertThat(testVideos.getCategories()).isEqualTo(UPDATED_CATEGORIES);
+        assertThat(testVideos.getThumbnail()).isEqualTo(UPDATED_THUMBNAIL);
+        assertThat(testVideos.getThumbnailContentType()).isEqualTo(UPDATED_THUMBNAIL_CONTENT_TYPE);
     }
 
     @Test
@@ -353,7 +372,13 @@ class VideosResourceIT {
         Videos partialUpdatedVideos = new Videos();
         partialUpdatedVideos.setId(videos.getId());
 
-        partialUpdatedVideos.name(UPDATED_NAME).url(UPDATED_URL).date(UPDATED_DATE).categories(UPDATED_CATEGORIES);
+        partialUpdatedVideos
+            .name(UPDATED_NAME)
+            .url(UPDATED_URL)
+            .date(UPDATED_DATE)
+            .categories(UPDATED_CATEGORIES)
+            .thumbnail(UPDATED_THUMBNAIL)
+            .thumbnailContentType(UPDATED_THUMBNAIL_CONTENT_TYPE);
 
         restVideosMockMvc
             .perform(
@@ -373,6 +398,8 @@ class VideosResourceIT {
         assertThat(testVideos.getVideo()).isEqualTo(DEFAULT_VIDEO);
         assertThat(testVideos.getVideoContentType()).isEqualTo(DEFAULT_VIDEO_CONTENT_TYPE);
         assertThat(testVideos.getCategories()).isEqualTo(UPDATED_CATEGORIES);
+        assertThat(testVideos.getThumbnail()).isEqualTo(UPDATED_THUMBNAIL);
+        assertThat(testVideos.getThumbnailContentType()).isEqualTo(UPDATED_THUMBNAIL_CONTENT_TYPE);
     }
 
     @Test
@@ -393,7 +420,9 @@ class VideosResourceIT {
             .date(UPDATED_DATE)
             .video(UPDATED_VIDEO)
             .videoContentType(UPDATED_VIDEO_CONTENT_TYPE)
-            .categories(UPDATED_CATEGORIES);
+            .categories(UPDATED_CATEGORIES)
+            .thumbnail(UPDATED_THUMBNAIL)
+            .thumbnailContentType(UPDATED_THUMBNAIL_CONTENT_TYPE);
 
         restVideosMockMvc
             .perform(
@@ -413,6 +442,8 @@ class VideosResourceIT {
         assertThat(testVideos.getVideo()).isEqualTo(UPDATED_VIDEO);
         assertThat(testVideos.getVideoContentType()).isEqualTo(UPDATED_VIDEO_CONTENT_TYPE);
         assertThat(testVideos.getCategories()).isEqualTo(UPDATED_CATEGORIES);
+        assertThat(testVideos.getThumbnail()).isEqualTo(UPDATED_THUMBNAIL);
+        assertThat(testVideos.getThumbnailContentType()).isEqualTo(UPDATED_THUMBNAIL_CONTENT_TYPE);
     }
 
     @Test

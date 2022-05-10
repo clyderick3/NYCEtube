@@ -51,6 +51,7 @@ export const Videos = (props: RouteComponentProps<{ url: string }>) => {
                 <th>Date</th>
                 <th>Video</th>
                 <th>Categories</th>
+                <th>Thumbnail</th>
                 <th>User</th>
                 <th />
               </tr>
@@ -77,6 +78,21 @@ export const Videos = (props: RouteComponentProps<{ url: string }>) => {
                     ) : null}
                   </td>
                   <td>{videos.categories}</td>
+                  <td>
+                    {videos.thumbnail ? (
+                      <div>
+                        {videos.thumbnailContentType ? (
+                          <a onClick={openFile(videos.thumbnailContentType, videos.thumbnail)}>
+                            <img src={`data:${videos.thumbnailContentType};base64,${videos.thumbnail}`} style={{ maxHeight: '30px' }} />
+                            &nbsp;
+                          </a>
+                        ) : null}
+                        <span>
+                          {videos.thumbnailContentType}, {byteSize(videos.thumbnail)}
+                        </span>
+                      </div>
+                    ) : null}
+                  </td>
                   <td>{videos.user ? videos.user.login : ''}</td>
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">

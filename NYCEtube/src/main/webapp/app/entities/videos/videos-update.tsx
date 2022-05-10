@@ -109,7 +109,16 @@ export const VideosUpdate = (props: RouteComponentProps<{ id: string }>) => {
                 type="datetime-local"
                 placeholder="YYYY-MM-DD HH:mm"
               />
-              <ValidatedBlobField label="Video" id="videos-video" name="video" data-cy="video" openActionLabel="Open" />
+              <ValidatedBlobField
+                label="Video"
+                id="videos-video"
+                name="video"
+                data-cy="video"
+                openActionLabel="Open"
+                validate={{
+                  required: { value: true, message: 'This field is required.' },
+                }}
+              />
               <ValidatedField label="Categories" id="videos-categories" name="categories" data-cy="categories" type="select">
                 {categoriesValues.map(categories => (
                   <option value={categories} key={categories}>
@@ -117,6 +126,17 @@ export const VideosUpdate = (props: RouteComponentProps<{ id: string }>) => {
                   </option>
                 ))}
               </ValidatedField>
+              <ValidatedBlobField
+                label="Thumbnail"
+                id="videos-thumbnail"
+                name="thumbnail"
+                data-cy="thumbnail"
+                isImage
+                accept="image/*"
+                validate={{
+                  required: { value: true, message: 'This field is required.' },
+                }}
+              />
               <ValidatedField id="videos-user" name="user" data-cy="user" label="User" type="select">
                 <option value="" key="0" />
                 {users
