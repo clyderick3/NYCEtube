@@ -37,13 +37,13 @@ export const Home = (ReactElement) => {
     <div className="centered">
       <Row>
       <Col>
+      <div className="centered">
         <p>
         </p>
-        <h2>Welcome to NYCEtube!</h2>
-        <p className="lead">NYCE to see you ^_^</p>
+        <h2 >Where you`re always watching ⊙=⊙</h2>
+        </div>
         {account?.login ? (
           <div>
-            <Alert color="success">You are logged in as user {account.login}.</Alert>
           </div>
         ) : (
           <div>
@@ -55,7 +55,7 @@ export const Home = (ReactElement) => {
       <h2 id="videos-heading" data-cy="VideosHeading">
         Videos
         <div className="d-flex justify-content-end">
-          <Button className="me-2" color="info" onClick={handleSyncList} disabled={loading}>
+          <Button className="me-2" color="red" onClick={handleSyncList} disabled={loading}>
             <FontAwesomeIcon icon="sync" spin={loading} /> Refresh List
           </Button>
           <Link to="/videos/new" className="btn btn-primary jh-create-entity" id="jh-create-entity" data-cy="entityCreateButton">
@@ -69,26 +69,29 @@ export const Home = (ReactElement) => {
           <Table responsive>
             <thead>
               <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Date</th>
-                <th>Video</th>
-                <th>Categories</th>
-                <th>User</th>
+                <th></th> {/* Thumbnail */}
+                <th></th> {/* Name */}
+                <th></th> {/* Date */}
+                {/* <th>Video</th> */}
+                <th></th> {/* Category */}
+                <th></th> {/* User */}
                 <th />
               </tr>
             </thead>
             <tbody>
               {videosList.map((videos, i) => (
                 <tr key={`entity-${i}`} data-cy="entityTable">
-                  <td>
+                  {/* <td>
                     <Button tag={Link} to={`/videos/${videos.id}`} color="link" size="sm">
                       {videos.id}
                     </Button>
-                  </td>
+                  </td> */}
+                  <Button tag={Link} to={`/videos/${videos.id}`} color="white" size="lg" data-cy="entityDetailsButton">
+                       <span className="d-none d-md-inline"><img src={`data:${videos.thumbnailContentType};base64,${videos.thumbnail}`} style={{ maxHeight: '200px' }} /></span>
+                      </Button>
                   <td>{videos.name}</td>
                   <td>{videos.date ? <TextFormat type="date" value={videos.date} format={APP_DATE_FORMAT} /> : null}</td>
-                  <td>
+                  {/* <td>
                     {videos.video ? (
                       
                       <div>
@@ -99,12 +102,9 @@ export const Home = (ReactElement) => {
                         </span>
                       </div>
                     ) : null}
-                  </td>
+                  </td> */}
                   <td>{videos.categories}</td>
                   <td>{videos.user ? videos.user.login : ''}</td>
-                  <Button tag={Link} to={`/videos/${videos.id}`} color="white" size="lg" data-cy="entityDetailsButton">
-                       <span className="d-none d-md-inline"><img src={`data:${videos.thumbnailContentType};base64,${videos.thumbnail}`} style={{ maxHeight: '200px' }} /></span>
-                      </Button>
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">
                     

@@ -1,15 +1,32 @@
 // import { url } from 'inspector';
-import React, { Component } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import { Router } from 'react-router-dom';
 import VideoPlayer from 'react-video-js-player';
 import Videos from 'url'
 
-    
+type Props = {
+    children: React.ReactElement;
+    waitBeforeShow?: number;
+  };
+  
+  const Delayed = ({ children, waitBeforeShow = 500 }: Props) => {
+    const [isShown, setIsShown] = useState(false);
+  
+    useEffect(() => {
+    //   console.log(waitBeforeShow);
+      setTimeout(() => {
+        setIsShown(true);
+      }, waitBeforeShow);
+    }, [waitBeforeShow]);
+  
+    return isShown ? children : null;
+  };
+
      const VideoApp = ({vid}) => {
     {
         
         return (
-            
+            <Delayed>
             <div>
             
            <VideoPlayer
@@ -24,7 +41,7 @@ import Videos from 'url'
                 />
                 
                 </div>
-                
+            </Delayed>
         );
     }
 }
@@ -33,5 +50,9 @@ import Videos from 'url'
 
 
 
+// export default Delayed;
 export default VideoApp;
+
+
+
 
