@@ -28,46 +28,14 @@ export const Home = (ReactElement) => {
     dispatch(getEntities({}));
   };
 
+  
+
   // const { match } = props;
 
   // const VideoUser = (props: RouteComponentProps<{ url: string }>) => {
   return (
     <div className="centered">
-    <Row>
-      {/* <Col md="3" className="pad">
-        <span className="hipster rounded" />
-      </Col> */}
-<div className="card-deck">
-  <div className="card">
-    <VideoApp vid = {url}/>
-    <div className="card-body">
-      <h5 className="card-title">video1</h5>
-      <p className="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-      <p className="card-text"><small className="text-muted">Last updated 3 mins ago</small></p>
-    </div>
-  </div>
-  <div className="card">
-  <VideoApp vid = {url} />
-    <div className="card-body">
-      <h5 className="card-title">Card title</h5>
-      <p className="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-      <p className="card-text"><small className="text-muted">Last updated 3 mins ago</small></p>
-    </div>
-  </div>
-  <div className="card">
-  <VideoApp  vid = {url}/>
-    <div className="card-body">
-      <h5 className="card-title">Card title</h5>
-      <p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-      <p className="card-text"><small className="text-muted">Last updated 3 mins ago</small></p>
-    </div>
-  </div>
-</div>
-
-
-
-
-
+      <Row>
       <Col>
         <p>
         </p>
@@ -79,10 +47,84 @@ export const Home = (ReactElement) => {
           </div>
         ) : (
           <div>
+           
           </div>
         )}
          <div>
-           <VideoApp vid = {url}/>
+         <div>
+      <h2 id="videos-heading" data-cy="VideosHeading">
+        Videos
+        <div className="d-flex justify-content-end">
+          <Button className="me-2" color="info" onClick={handleSyncList} disabled={loading}>
+            <FontAwesomeIcon icon="sync" spin={loading} /> Refresh List
+          </Button>
+          <Link to="/videos/new" className="btn btn-primary jh-create-entity" id="jh-create-entity" data-cy="entityCreateButton">
+            <FontAwesomeIcon icon="plus" />
+            &nbsp; Create new Videos
+          </Link>
+        </div>
+      </h2>
+      <div className="table-responsive">
+        {videosList && videosList.length > 0 ? (
+          <Table responsive>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Date</th>
+                <th>Video</th>
+                <th>Categories</th>
+                <th>User</th>
+                <th />
+              </tr>
+            </thead>
+            <tbody>
+              {videosList.map((videos, i) => (
+                <tr key={`entity-${i}`} data-cy="entityTable">
+                  <td>
+                    <Button tag={Link} to={`/videos/${videos.id}`} color="link" size="sm">
+                      {videos.id}
+                    </Button>
+                  </td>
+                  <td>{videos.name}</td>
+                  <td>{videos.date ? <TextFormat type="date" value={videos.date} format={APP_DATE_FORMAT} /> : null}</td>
+                  <td>
+                    {videos.video ? (
+                      
+                      <div>
+                        
+                        {videos.videoContentType ? <a onClick={openFile(videos.videoContentType, videos.video)}>Open &nbsp;</a> : null}
+                        <span>
+                          {videos.videoContentType}, {byteSize(videos.video)}
+                        </span>
+                      </div>
+                    ) : null}
+                  </td>
+                  <td>{videos.categories}</td>
+                  <td>{videos.user ? videos.user.login : ''}</td>
+                  <Button tag={Link} to={`/videos/${videos.id}`} color="white" size="lg" data-cy="entityDetailsButton">
+                       <span className="d-none d-md-inline"><img src={`data:${videos.thumbnailContentType};base64,${videos.thumbnail}`} style={{ maxHeight: '200px' }} /></span>
+                      </Button>
+                  <td className="text-end">
+                    <div className="btn-group flex-btn-group-container">
+                    
+                      <Button tag={Link} to={`/videos/${videos.id}/edit`} color="primary" size="sm" data-cy="entityEditButton">
+                        <FontAwesomeIcon icon="pencil-alt" /> <span className="d-none d-md-inline">Edit</span>
+                      </Button>
+                      <Button tag={Link} to={`/videos/${videos.id}/delete`} color="danger" size="sm" data-cy="entityDeleteButton">
+                        <FontAwesomeIcon icon="trash" /> <span className="d-none d-md-inline">Delete</span>
+                      </Button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        ) : (
+          !loading && <div className="alert alert-warning">No Videos found</div>
+        )}
+      </div>
+    </div>
         </div>
       </Col>
     </Row>

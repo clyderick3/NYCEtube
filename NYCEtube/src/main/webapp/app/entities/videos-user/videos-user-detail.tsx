@@ -8,6 +8,8 @@ import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { getEntity } from './videos-user.reducer';
 import VideoApp from 'app/modules/home/videoapp';
+import VideoPlayer from 'react-video-js-player';
+
 
 export const VideosDetail = (props: RouteComponentProps<{ id: string }>) => {
   const dispatch = useAppDispatch();
@@ -20,6 +22,16 @@ export const VideosDetail = (props: RouteComponentProps<{ id: string }>) => {
   return (
     <Row>
       <VideoApp vid = {videosEntity} />
+      {/* <VideoPlayer
+                    
+                    controls={true}
+                    src= {videosEntity.url}
+                    poster={videosEntity.poster}
+                    width="720"
+                    height="420"
+                   // onReady={this.onPlayerReady.bind(this)}
+                    type="video/mp4"
+                /> */}
       <Col md="8">
         <h2 data-cy="videosDetailsHeading">Videos</h2>
         <dl className="jh-entity-details">
