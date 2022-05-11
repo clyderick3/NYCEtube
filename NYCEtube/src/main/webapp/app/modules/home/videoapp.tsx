@@ -9,9 +9,10 @@ import Videos from 'url'
         return (
             <div>
            <VideoPlayer
+                    preload= "metadata"
                     controls={true}
-                    src= {vid}
-                    poster={'https://images.pexels.com/photos/2253275/pexels-photo-2253275.jpeg'}
+                    src= {vid.url}
+                    poster={vid.poster}
                     width="720"
                     height="420"
                    // onReady={this.onPlayerReady.bind(this)}

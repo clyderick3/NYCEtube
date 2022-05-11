@@ -68,7 +68,9 @@ export const VideosUser = (props: RouteComponentProps<{ url: string }>) => {
                   <td>{videos.date ? <TextFormat type="date" value={videos.date} format={APP_DATE_FORMAT} /> : null}</td>
                   <td>
                     {videos.video ? (
+                      
                       <div>
+                        
                         {videos.videoContentType ? <a onClick={openFile(videos.videoContentType, videos.video)}>Open &nbsp;</a> : null}
                         <span>
                           {videos.videoContentType}, {byteSize(videos.video)}
@@ -78,11 +80,12 @@ export const VideosUser = (props: RouteComponentProps<{ url: string }>) => {
                   </td>
                   <td>{videos.categories}</td>
                   <td>{videos.user ? videos.user.login : ''}</td>
+                  <Button tag={Link} to={`/videos/${videos.id}`} color="white" size="lg" data-cy="entityDetailsButton">
+                       <span className="d-none d-md-inline"><img src={`data:${videos.thumbnailContentType};base64,${videos.thumbnail}`} style={{ maxHeight: '200px' }} /></span>
+                      </Button>
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">
-                      <Button tag={Link} to={`/videos/${videos.id}`} color="info" size="sm" data-cy="entityDetailsButton">
-                        <FontAwesomeIcon icon="eye" /> <span className="d-none d-md-inline">View</span>
-                      </Button>
+                    
                       <Button tag={Link} to={`/videos/${videos.id}/edit`} color="primary" size="sm" data-cy="entityEditButton">
                         <FontAwesomeIcon icon="pencil-alt" /> <span className="d-none d-md-inline">Edit</span>
                       </Button>

@@ -6,8 +6,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
-
 import { getEntity } from './videos-user.reducer';
+import VideoApp from 'app/modules/home/videoapp';
 
 export const VideosDetail = (props: RouteComponentProps<{ id: string }>) => {
   const dispatch = useAppDispatch();
@@ -19,6 +19,7 @@ export const VideosDetail = (props: RouteComponentProps<{ id: string }>) => {
   const videosEntity = useAppSelector(state => state.videos.entity);
   return (
     <Row>
+      <VideoApp vid = {videosEntity} />
       <Col md="8">
         <h2 data-cy="videosDetailsHeading">Videos</h2>
         <dl className="jh-entity-details">
