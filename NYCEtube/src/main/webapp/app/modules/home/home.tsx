@@ -18,7 +18,7 @@ export const Home = (ReactElement) => {
   const loading = useAppSelector(state => state.videos.loading);
   const dispatch = useAppDispatch();
   const url = 'https://zcw-cohort8zero.s3.amazonaws.com/videoapp/sora.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20220509T183032Z&X-Amz-SignedHeaders=host&X-Amz-Expires=604799&X-Amz-Credential=AKIAUTLWJ537YFVAWF46%2F20220509%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=69c99954726330f49a4a5bc58f975fd236de3a010e615feb10d7ad2b8cc31428';
-  
+
 
   useEffect(() => {
     dispatch(getEntities({}));
@@ -28,7 +28,7 @@ export const Home = (ReactElement) => {
     dispatch(getEntities({}));
   };
 
-  
+
 
   // const { match } = props;
 
@@ -47,7 +47,7 @@ export const Home = (ReactElement) => {
           </div>
         ) : (
           <div>
-           
+
           </div>
         )}
          <div>
@@ -87,15 +87,22 @@ export const Home = (ReactElement) => {
                     </Button>
                   </td> */}
                   <Button tag={Link} to={`/videos/${videos.id}`} color="white" size="lg" data-cy="entityDetailsButton">
+                  <div className="centered" style={{ height: '210px', width: "373px", background: "black"}}>
                        <span className="d-none d-md-inline"><img src={`data:${videos.thumbnailContentType};base64,${videos.thumbnail}`} style={{ maxHeight: '200px' }} /></span>
-                      </Button>
+                    </div>
+                    </Button>
+
                   <td>{videos.name}</td>
+
                   <td>{videos.date ? <TextFormat type="date" value={videos.date} format={APP_DATE_FORMAT} /> : null}</td>
+
+
+
                   {/* <td>
                     {videos.video ? (
-                      
+
                       <div>
-                        
+
                         {videos.videoContentType ? <a onClick={openFile(videos.videoContentType, videos.video)}>Open &nbsp;</a> : null}
                         <span>
                           {videos.videoContentType}, {byteSize(videos.video)}
@@ -107,7 +114,7 @@ export const Home = (ReactElement) => {
                   <td>{videos.user ? videos.user.login : ''}</td>
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">
-                    
+
                       <Button tag={Link} to={`/videos/${videos.id}/edit`} color="primary" size="sm" data-cy="entityEditButton">
                         <FontAwesomeIcon icon="pencil-alt" /> <span className="d-none d-md-inline">Edit</span>
                       </Button>
