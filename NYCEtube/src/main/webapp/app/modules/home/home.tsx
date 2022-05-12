@@ -83,9 +83,13 @@ export const Home = (ReactElement) => {
                     </Button>
                   </td> */}
                   <Button tag={Link} to={`/videos/${videos.id}`} color="white" size="lg" data-cy="entityDetailsButton">
+                  <div className="centered" style={{ height: '210px', width: "373px", background: "black"}}>
                        <span className="d-none d-md-inline"><img src={`data:${videos.thumbnailContentType};base64,${videos.thumbnail}`} style={{ maxHeight: '200px' }} /></span>
-                      </Button>
+                    </div>
+                    </Button>
+                    
                   <td>{videos.name}</td>
+
                   {/* <td>
                     {videos.video ? (
                       
