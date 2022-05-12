@@ -1,16 +1,20 @@
 package com.nyce.tube.service.impl;
 
 import com.nyce.tube.domain.Videos;
+import com.nyce.tube.repository.UserRepository;
 import com.nyce.tube.repository.VideosRepository;
+import com.nyce.tube.security.SecurityUtils;
 import com.nyce.tube.service.VideosService;
 import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 
 /**
  * Service Implementation for managing {@link Videos}.
@@ -18,6 +22,9 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 public class VideosServiceImpl implements VideosService {
+
+    @Autowired
+    private UserRepository userRepository;
 
     private final Logger log = LoggerFactory.getLogger(VideosServiceImpl.class);
 
@@ -30,6 +37,7 @@ public class VideosServiceImpl implements VideosService {
     @Override
     public Videos save(Videos videos) {
         log.debug("Request to save Videos : {}", videos);
+        videos.setUser(SecurityUtils.getCurrentUserLogin().flatMap(userRepository::findOneByLogin).get());
         return videosRepository.save(videos);
     }
 
@@ -49,9 +57,6 @@ public class VideosServiceImpl implements VideosService {
                 if (videos.getName() != null) {
                     existingVideos.setName(videos.getName());
                 }
-                if (videos.getUrl() != null) {
-                    existingVideos.setUrl(videos.getUrl());
-                }
                 if (videos.getDate() != null) {
                     existingVideos.setDate(videos.getDate());
                 }
@@ -64,22 +69,23 @@ public class VideosServiceImpl implements VideosService {
                 if (videos.getCategories() != null) {
                     existingVideos.setCategories(videos.getCategories());
                 }
-                if (videos.getThumbnail() != null) {
-                    existingVideos.setThumbnail(videos.getThumbnail());
-                }
-                if (videos.getThumbnailContentType() != null) {
-                    existingVideos.setThumbnailContentType(videos.getThumbnailContentType());
-                }
 
                 return existingVideos;
             })
             .map(videosRepository::save);
     }
 
+    
+    @Transactional(readOnly = true)
+    public List<Videos> findAllByUser() {
+        log.debug("Request to get all Videos by Current User");
+        return videosRepository.findByUserIsCurrentUser();
+    }
+
     @Override
     @Transactional(readOnly = true)
     public List<Videos> findAll() {
-        log.debug("Request to get all Videos");
+        log.debug("Request to get all Videos by Current User");
         return videosRepository.findAllWithEagerRelationships();
     }
 

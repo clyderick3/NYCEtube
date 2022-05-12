@@ -17,8 +17,7 @@ export const Home = (ReactElement) => {
   const videosList = useAppSelector(state => state.videos.entities);
   const loading = useAppSelector(state => state.videos.loading);
   const dispatch = useAppDispatch();
-  const url = 'https://zcw-cohort8zero.s3.amazonaws.com/videoapp/sora.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20220509T183032Z&X-Amz-SignedHeaders=host&X-Amz-Expires=604799&X-Amz-Credential=AKIAUTLWJ537YFVAWF46%2F20220509%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=69c99954726330f49a4a5bc58f975fd236de3a010e615feb10d7ad2b8cc31428';
-
+  
 
   useEffect(() => {
     dispatch(getEntities({}));
@@ -28,110 +27,55 @@ export const Home = (ReactElement) => {
     dispatch(getEntities({}));
   };
 
-
-
   // const { match } = props;
 
   // const VideoUser = (props: RouteComponentProps<{ url: string }>) => {
   return (
     <div className="centered">
-      <Row>
+    <Row>
+      {/* <Col md="3" className="pad">
+        <span className="hipster rounded" />
+      </Col> */}
+<div className = "container" >
+  <div className="row">
+    <div className="col">video1</div>
+    <div className="col">video2</div>
+    <div className="col">video3</div>
+
+  </div>
+  <div className="row">
+    <div className="col">video4</div>
+    <div className="col">video5</div>
+    <div className="col">video6</div>
+
+  </div>
+  <div className="row">
+    <div className="col">video7</div>
+    <div className="col">video8</div>
+    <div className="col">video9</div>
+
+  </div>
+</div>
+
+
+
+
+
       <Col>
-      <div className="centered">
         <p>
         </p>
-        <h2 >Where you`re always watching ⊙=⊙</h2>
-        </div>
+        <h2>Welcome to NYCEtube!</h2>
+        <p className="lead">NYCE to see you ^_^</p>
         {account?.login ? (
           <div>
+            <Alert color="success">You are logged in as user {account.login}.</Alert>
           </div>
         ) : (
           <div>
-
           </div>
         )}
          <div>
-         <div>
-      <h2 id="videos-heading" data-cy="VideosHeading">
-        Videos
-        <div className="d-flex justify-content-end">
-          <Button className="me-2" color="red" onClick={handleSyncList} disabled={loading}>
-            <FontAwesomeIcon icon="sync" spin={loading} /> Refresh List
-          </Button>
-          <Link to="/videos/new" className="btn btn-primary jh-create-entity" id="jh-create-entity" data-cy="entityCreateButton">
-            <FontAwesomeIcon icon="plus" />
-            &nbsp; Create new Videos
-          </Link>
-        </div>
-      </h2>
-      <div className="table-responsive">
-        {videosList && videosList.length > 0 ? (
-          <Table responsive>
-            <thead>
-              <tr>
-                <th></th> {/* Thumbnail */}
-                <th></th> {/* Name */}
-                <th></th> {/* Date */}
-                {/* <th>Video</th> */}
-                <th></th> {/* Category */}
-                <th></th> {/* User */}
-                <th />
-              </tr>
-            </thead>
-            <tbody>
-              {videosList.map((videos, i) => (
-                <tr key={`entity-${i}`} data-cy="entityTable">
-                  {/* <td>
-                    <Button tag={Link} to={`/videos/${videos.id}`} color="link" size="sm">
-                      {videos.id}
-                    </Button>
-                  </td> */}
-                  <Button tag={Link} to={`/videos/${videos.id}`} color="white" size="lg" data-cy="entityDetailsButton">
-                  <div className="centered" style={{ height: '210px', width: "373px", background: "black"}}>
-                       <span className="d-none d-md-inline"><img src={`data:${videos.thumbnailContentType};base64,${videos.thumbnail}`} style={{ maxHeight: '200px' }} /></span>
-                    </div>
-                    </Button>
-
-                  <td>{videos.name}</td>
-
-                  <td>{videos.date ? <TextFormat type="date" value={videos.date} format={APP_DATE_FORMAT} /> : null}</td>
-
-
-
-                  {/* <td>
-                    {videos.video ? (
-
-                      <div>
-
-                        {videos.videoContentType ? <a onClick={openFile(videos.videoContentType, videos.video)}>Open &nbsp;</a> : null}
-                        <span>
-                          {videos.videoContentType}, {byteSize(videos.video)}
-                        </span>
-                      </div>
-                    ) : null}
-                  </td> */}
-                  <td>{videos.categories}</td>
-                  <td>{videos.user ? videos.user.login : ''}</td>
-                  <td className="text-end">
-                    <div className="btn-group flex-btn-group-container">
-
-                      <Button tag={Link} to={`/videos/${videos.id}/edit`} color="primary" size="sm" data-cy="entityEditButton">
-                        <FontAwesomeIcon icon="pencil-alt" /> <span className="d-none d-md-inline">Edit</span>
-                      </Button>
-                      <Button tag={Link} to={`/videos/${videos.id}/delete`} color="danger" size="sm" data-cy="entityDeleteButton">
-                        <FontAwesomeIcon icon="trash" /> <span className="d-none d-md-inline">Delete</span>
-                      </Button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </Table>
-        ) : (
-          !loading && <div className="alert alert-warning">No Videos found</div>
-        )}
-      </div>
-    </div>
+           <VideoApp/>
         </div>
       </Col>
     </Row>

@@ -2,8 +2,8 @@ package com.nyce.tube.web.rest;
 
 import com.nyce.tube.domain.Videos;
 import com.nyce.tube.repository.VideosRepository;
-import com.nyce.tube.service.BucketService;
 import com.nyce.tube.service.VideosService;
+import com.nyce.tube.service.BucketService;
 import com.nyce.tube.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -35,6 +35,7 @@ public class VideosResource {
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
 
+
     private final VideosService videosService;
 
     private final VideosRepository videosRepository;
@@ -63,6 +64,7 @@ public class VideosResource {
             throw new BadRequestAlertException("A new videos cannot already have an ID", ENTITY_NAME, "idexists");
         }
         Videos result = videosService.save(videos);
+        // upload to S3 and set the url field to presigned url
         return ResponseEntity
             .created(new URI("/api/videos/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
@@ -145,10 +147,16 @@ public class VideosResource {
      * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of videos in body.
      */
+    // @GetMapping("/videos")
+    // public List<Videos> getAllVideos(@RequestParam(required = false, defaultValue = "false") boolean eagerload) {
+    //     log.debug("REST request to get all Videos");
+    //     return videosService.findAll();
+    // }
+
     @GetMapping("/videos")
-    public List<Videos> getAllVideos(@RequestParam(required = false, defaultValue = "false") boolean eagerload) {
+    public List<Videos> getAllVideosByUser(@RequestParam(required = false, defaultValue = "false") boolean eagerload) {
         log.debug("REST request to get all Videos");
-        return videosService.findAll();
+        return videosService.findAllByUser();
     }
 
     /**
@@ -160,8 +168,7 @@ public class VideosResource {
     @GetMapping("/videos/{id}")
     public ResponseEntity<Videos> getVideos(@PathVariable Long id) {
         log.debug("REST request to get Videos : {}", id);
-        Optional <Videos> videos = videosService.findOne(id);
-        videos.get().setUrl(bucketService.getUrl(videos.get().getName()));
+        Optional<Videos> videos = videosService.findOne(id);
         return ResponseUtil.wrapOrNotFound(videos);
     }
 
@@ -180,4 +187,11 @@ public class VideosResource {
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
             .build();
     }
+
+    // @GetMapping("/videos/bucket/{video}")
+    // public String getVideoUrl(@PathVariable String video){
+    //     return bucketService.getUrl(video);
+    // }
+
+
 }

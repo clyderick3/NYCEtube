@@ -31,10 +31,6 @@ export const VideosDetail = (props: RouteComponentProps<{ id: string }>) => {
           </dt>
           <dd>{videosEntity.name}</dd>
           <dt>
-            <span id="url">Url</span>
-          </dt>
-          <dd>{videosEntity.url}</dd>
-          <dt>
             <span id="date">Date</span>
           </dt>
           <dd>{videosEntity.date ? <TextFormat value={videosEntity.date} type="date" format={APP_DATE_FORMAT} /> : null}</dd>
@@ -57,23 +53,6 @@ export const VideosDetail = (props: RouteComponentProps<{ id: string }>) => {
             <span id="categories">Categories</span>
           </dt>
           <dd>{videosEntity.categories}</dd>
-          <dt>
-            <span id="thumbnail">Thumbnail</span>
-          </dt>
-          <dd>
-            {videosEntity.thumbnail ? (
-              <div>
-                {videosEntity.thumbnailContentType ? (
-                  <a onClick={openFile(videosEntity.thumbnailContentType, videosEntity.thumbnail)}>
-                    <img src={`data:${videosEntity.thumbnailContentType};base64,${videosEntity.thumbnail}`} style={{ maxHeight: '30px' }} />
-                  </a>
-                ) : null}
-                <span>
-                  {videosEntity.thumbnailContentType}, {byteSize(videosEntity.thumbnail)}
-                </span>
-              </div>
-            ) : null}
-          </dd>
           <dt>User</dt>
           <dd>{videosEntity.user ? videosEntity.user.login : ''}</dd>
         </dl>

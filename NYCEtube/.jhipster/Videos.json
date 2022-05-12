@@ -12,29 +12,18 @@
       "fieldValidateRulesMaxlength": "200"
     },
     {
-      "fieldName": "url",
-      "fieldType": "String"
-    },
-    {
       "fieldName": "date",
       "fieldType": "ZonedDateTime"
     },
     {
       "fieldName": "video",
       "fieldType": "byte[]",
-      "fieldTypeBlobContent": "any",
-      "fieldValidateRules": ["required"]
+      "fieldTypeBlobContent": "any"
     },
     {
       "fieldName": "categories",
       "fieldType": "Categories",
       "fieldValues": "ARTSCRAFTS (ArtsCrafts),FASHIONBEAUTY (FashionBeauty),FOOD (Food),GAMING (Gaming),KIDS (Kids),LEARNING (Learning),MOVIESTV (MoviesShows),MUSIC (Music),NEWS (News),PEOPLEBLOGS (PeopleBlogs),PETSANIMALS (PetsAnimals),SCITECH (ScienceTechnology),SPORTS (Sports),TRAVEL (Travel)"
-    },
-    {
-      "fieldName": "thumbnail",
-      "fieldType": "byte[]",
-      "fieldTypeBlobContent": "image",
-      "fieldValidateRules": ["required"]
     }
   ],
   "fluentMethods": true,

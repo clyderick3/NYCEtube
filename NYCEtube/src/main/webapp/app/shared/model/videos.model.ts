@@ -5,13 +5,10 @@ import { Categories } from 'app/shared/model/enumerations/categories.model';
 export interface IVideos {
   id?: number;
   name?: string;
-  url?: string | null;
   date?: string | null;
-  videoContentType?: string;
-  video?: string;
+  videoContentType?: string | null;
+  video?: string | null;
   categories?: Categories | null;
-  thumbnailContentType?: string;
-  thumbnail?: string;
   user?: IUser | null;
 }
 

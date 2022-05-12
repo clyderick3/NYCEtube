@@ -1,15 +1,13 @@
 
 entity Videos {
-    name String required maxlength(200)
-    url String 
+   name String required maxlength(200)
     date ZonedDateTime
-    video Blob required 
+    video Blob
     categories Categories
-    thumbnail ImageBlob required
 }
 
 entity Comment {
-    date ZonedDateTime
+   date ZonedDateTime
     text String
 }
 
@@ -31,7 +29,7 @@ enum Categories {
 }
 
 relationship ManyToOne {
-    Videos{user(login)} to User
+   Videos{user(login)} to User
     Comment{user(login)} to User
     Comment{videos(videosId)} to Videos
 
