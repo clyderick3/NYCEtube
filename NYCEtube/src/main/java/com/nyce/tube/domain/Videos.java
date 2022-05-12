@@ -28,19 +28,31 @@ public class Videos implements Serializable {
     @Column(name = "name", length = 200, nullable = false)
     private String name;
 
+    @Column(name = "url")
+    private String url;
+
     @Column(name = "date")
     private ZonedDateTime date;
 
     @Lob
-    @Column(name = "video")
+    @Column(name = "video", nullable = false)
     private byte[] video;
 
-    @Column(name = "video_content_type")
+    @NotNull
+    @Column(name = "video_content_type", nullable = false)
     private String videoContentType;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "categories")
     private Categories categories;
+
+    @Lob
+    @Column(name = "thumbnail", nullable = false)
+    private byte[] thumbnail;
+
+    @NotNull
+    @Column(name = "thumbnail_content_type", nullable = false)
+    private String thumbnailContentType;
 
     @ManyToOne
     private User user;
@@ -71,6 +83,19 @@ public class Videos implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getUrl() {
+        return this.url;
+    }
+
+    public Videos url(String url) {
+        this.setUrl(url);
+        return this;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public ZonedDateTime getDate() {
@@ -125,6 +150,32 @@ public class Videos implements Serializable {
         this.categories = categories;
     }
 
+    public byte[] getThumbnail() {
+        return this.thumbnail;
+    }
+
+    public Videos thumbnail(byte[] thumbnail) {
+        this.setThumbnail(thumbnail);
+        return this;
+    }
+
+    public void setThumbnail(byte[] thumbnail) {
+        this.thumbnail = thumbnail;
+    }
+
+    public String getThumbnailContentType() {
+        return this.thumbnailContentType;
+    }
+
+    public Videos thumbnailContentType(String thumbnailContentType) {
+        this.thumbnailContentType = thumbnailContentType;
+        return this;
+    }
+
+    public void setThumbnailContentType(String thumbnailContentType) {
+        this.thumbnailContentType = thumbnailContentType;
+    }
+
     public User getUser() {
         return this.user;
     }
@@ -163,10 +214,13 @@ public class Videos implements Serializable {
         return "Videos{" +
             "id=" + getId() +
             ", name='" + getName() + "'" +
+            ", url='" + getUrl() + "'" +
             ", date='" + getDate() + "'" +
             ", video='" + getVideo() + "'" +
             ", videoContentType='" + getVideoContentType() + "'" +
             ", categories='" + getCategories() + "'" +
+            ", thumbnail='" + getThumbnail() + "'" +
+            ", thumbnailContentType='" + getThumbnailContentType() + "'" +
             "}";
     }
 }

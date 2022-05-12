@@ -2,14 +2,11 @@ package com.nyce.tube.service.impl;
 
 import com.nyce.tube.domain.Comment;
 import com.nyce.tube.repository.CommentRepository;
-import com.nyce.tube.repository.UserRepository;
-import com.nyce.tube.security.SecurityUtils;
 import com.nyce.tube.service.CommentService;
 import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -21,9 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 public class CommentServiceImpl implements CommentService {
-
-    @Autowired
-    private UserRepository userRepository;
 
     private final Logger log = LoggerFactory.getLogger(CommentServiceImpl.class);
 
