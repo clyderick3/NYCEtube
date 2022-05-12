@@ -8,6 +8,8 @@ import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { getEntity } from './videos-user.reducer';
 import VideoApp from 'app/modules/home/videoapp';
+import VideoPlayer from 'react-video-js-player';
+
 
 export const VideosDetail = (props: RouteComponentProps<{ id: string }>) => {
   const dispatch = useAppDispatch();
@@ -21,23 +23,8 @@ export const VideosDetail = (props: RouteComponentProps<{ id: string }>) => {
     <Row>
       <VideoApp vid = {videosEntity} />
       <Col md="8">
-        <h2 data-cy="videosDetailsHeading">Videos</h2>
+        <h2 data-cy="videosDetailsHeading">{videosEntity.name}</h2>
         <dl className="jh-entity-details">
-          <dt>
-            <span id="id">ID</span>
-          </dt>
-          <dd>{videosEntity.id}</dd>
-          <dt>
-            <span id="name">Name</span>
-          </dt>
-          <dd>{videosEntity.name}</dd>
-          <dt>
-            <span id="date">Date</span>
-          </dt>
-          <dd>{videosEntity.date ? <TextFormat value={videosEntity.date} type="date" format={APP_DATE_FORMAT} /> : null}</dd>
-          <dt>
-            <span id="video">Video</span>
-          </dt>
           <dd>
             {videosEntity.video ? (
               <div>
@@ -54,10 +41,10 @@ export const VideosDetail = (props: RouteComponentProps<{ id: string }>) => {
             <span id="categories">Categories</span>
           </dt>
           <dd>{videosEntity.categories}</dd>
-          <dt>User</dt>
+          <dt>Created by:</dt>
           <dd>{videosEntity.user ? videosEntity.user.login : ''}</dd>
         </dl>
-        <Button tag={Link} to="/videos" replace color="info" data-cy="entityDetailsBackButton">
+        <Button tag={Link} to="/" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" /> <span className="d-none d-md-inline">Back</span>
         </Button>
         &nbsp;
