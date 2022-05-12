@@ -37,6 +37,11 @@ export const Home = (ReactElement) => {
     <div className="centered">
       <Row>
       <Col>
+      <div className="centered">
+        <p>
+        </p>
+        <h2 >Where you`re always watching ⊙=⊙</h2>
+        </div>
         {account?.login ? (
           <div>
           </div>
@@ -47,9 +52,8 @@ export const Home = (ReactElement) => {
         )}
          <div>
          <div>
-         <h2 className="centered">Where you`re always watching ⊙=⊙</h2>
-      <h3 className="centered" id="videos-heading" data-cy="VideosHeading">
-        Viewfinder
+      <h2 id="videos-heading" data-cy="VideosHeading">
+        Videos
         <div className="d-flex justify-content-end">
           <Button className="me-2" color="red" onClick={handleSyncList} disabled={loading}>
             <FontAwesomeIcon icon="sync" spin={loading} /> Refresh List
@@ -59,7 +63,7 @@ export const Home = (ReactElement) => {
             &nbsp; Create new Videos
           </Link>
         </div>
-      </h3>
+      </h2>
       <div className="table-responsive">
         {videosList && videosList.length > 0 ? (
           <Table responsive>
@@ -86,6 +90,7 @@ export const Home = (ReactElement) => {
                        <span className="d-none d-md-inline"><img src={`data:${videos.thumbnailContentType};base64,${videos.thumbnail}`} style={{ maxHeight: '200px' }} /></span>
                       </Button>
                   <td>{videos.name}</td>
+                  <td>{videos.date ? <TextFormat type="date" value={videos.date} format={APP_DATE_FORMAT} /> : null}</td>
                   {/* <td>
                     {videos.video ? (
                       
