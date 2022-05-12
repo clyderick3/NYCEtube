@@ -22,34 +22,9 @@ export const VideosDetail = (props: RouteComponentProps<{ id: string }>) => {
   return (
     <Row>
       <VideoApp vid = {videosEntity} />
-      {/* <VideoPlayer
-                    
-                    controls={true}
-                    src= {videosEntity.url}
-                    poster={videosEntity.poster}
-                    width="720"
-                    height="420"
-                   // onReady={this.onPlayerReady.bind(this)}
-                    type="video/mp4"
-                /> */}
       <Col md="8">
-        <h2 data-cy="videosDetailsHeading">Videos</h2>
+        <h2 data-cy="videosDetailsHeading">{videosEntity.name}</h2>
         <dl className="jh-entity-details">
-          <dt>
-            <span id="id">ID</span>
-          </dt>
-          <dd>{videosEntity.id}</dd>
-          <dt>
-            <span id="name">Name</span>
-          </dt>
-          <dd>{videosEntity.name}</dd>
-          <dt>
-            <span id="date">Date</span>
-          </dt>
-          <dd>{videosEntity.date ? <TextFormat value={videosEntity.date} type="date" format={APP_DATE_FORMAT} /> : null}</dd>
-          <dt>
-            <span id="video">Video</span>
-          </dt>
           <dd>
             {videosEntity.video ? (
               <div>
@@ -66,10 +41,10 @@ export const VideosDetail = (props: RouteComponentProps<{ id: string }>) => {
             <span id="categories">Categories</span>
           </dt>
           <dd>{videosEntity.categories}</dd>
-          <dt>User</dt>
+          <dt>Created by:</dt>
           <dd>{videosEntity.user ? videosEntity.user.login : ''}</dd>
         </dl>
-        <Button tag={Link} to="/videos" replace color="info" data-cy="entityDetailsBackButton">
+        <Button tag={Link} to="/" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" /> <span className="d-none d-md-inline">Back</span>
         </Button>
         &nbsp;
